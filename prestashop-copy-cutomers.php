@@ -29,6 +29,16 @@ if ($conn_destination->connect_error) {
     die("Connection failed: " . $conn_destination->connect_error);
 }
 
+if (!$conn_destination->set_charset("utf8")) {
+    printf("Error loading character set utf8: %s\n", $conn_destination->error);
+    exit();
+}
+
+if (!$conn_source->set_charset("utf8")) {
+    printf("Error loading character set utf8: %s\n", $conn_source->error);
+    exit();
+}
+
 $result = $conn_source->query("SELECT * FROM " . $prefix . "customer");
 
 $counter_exist = $counter_non_exist = 0;
